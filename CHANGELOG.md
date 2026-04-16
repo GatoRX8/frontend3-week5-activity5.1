@@ -1,3 +1,10 @@
+# 1.0.0 (2026-04-16)
+
+
+### Bug Fixes
+
+* formato Prettier y guía CI/CD en README ([#1](https://github.com/GatoRX8/frontend3-week5-activity5.1/issues/1)) ([c3f2386](https://github.com/GatoRX8/frontend3-week5-activity5.1/commit/c3f23861ee4be28e01e16303148dc2d461613737))
+
 # [1.2.0](https://github.com/JosephRangel/frontend3-week5-activity/compare/v1.1.0...v1.2.0) (2026-04-13)
 
 
