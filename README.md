@@ -7,11 +7,11 @@ Bienvenido a la construcción de tu primera Single Page Application (SPA) conect
 Abre tu terminal y ejecuta los siguientes comandos para inicializar el proyecto base con Vite:
 
 ```bash
-# 1. Crear el proyecto (escribe 'y' si te pide confirmación)
-git clone https://github.com/JosephRangel/frontend3-week5-activity.git
+# 1. Clonar este repositorio (TechStore / GamePedia)
+git clone https://github.com/GatoRX8/frontend3-week5-activity5.1.git
 
-# 2. Entrar a la carpeta recién creada
-cd frontend3-week5-activity
+# 2. Entrar a la carpeta del proyecto
+cd frontend3-week5-activity5.1
 
 # 3. Instalar las dependencias de Node.js
 npm install
@@ -51,7 +51,27 @@ src/
 *(Asegúrate de que cada archivo tenga la estructura básica de un componente de React exportado por defecto `export default ComponentName`)*.
 
 
-## ☁️ Configuracion para publicar en Docker Hub
+## 🔄 Actividad: CI/CD (imagen en Docker Hub)
+
+Resumen del flujo que conecta tu código con la imagen publicada:
+
+1. **Secretos de GitHub Actions** (véase la sección siguiente): `DOCKER_USERNAME` y `DOCKER_PASSWORD` deben existir en **Settings → Secrets and variables → Actions**. Si cambiaste contraseña en Docker Hub o el workflow falló al autenticar, vuelve a crearlos con los mismos nombres.
+2. **Rama y PR**: trabaja en una rama `actividad/...`, sube los cambios y abre un Pull Request hacia `main`. El workflow **Calificador** ejecuta `npm ci`, Prettier, ESLint y Vitest.
+3. **Merge a `main`**: al integrar el PR, se ejecuta **CI/CD Pipeline (Semantic Release & Docker)**. Semantic Release solo crea versión y etiqueta si el historial incluye commits con **Conventional Commits** que impliquen release (por ejemplo `fix:` o `feat:`). Si usas **Squash and merge**, edita el mensaje del commit consolidado para que empiece por `fix:` o `feat:` (ejemplo: `fix: actualizar documentación y formato del proyecto`).
+4. **Docker Hub**: cuando hay nueva versión, el job **Build & Push Docker** publica la imagen en `<tu_usuario_docker>/proyecto-frontend-iii` con etiquetas de versión y `latest`.
+
+### Descargar y ejecutar la imagen publicada
+
+Sustituye `<tu-usuario-dockerhub>` por el mismo valor que guardaste en `DOCKER_USERNAME`:
+
+```bash
+docker pull <tu-usuario-dockerhub>/proyecto-frontend-iii:latest
+docker run -d -p 8080:80 --name frontend-app <tu-usuario-dockerhub>/proyecto-frontend-iii:latest
+```
+
+Abre [http://localhost:8080](http://localhost:8080). Para detener y eliminar: `docker stop frontend-app` y `docker rm frontend-app`.
+
+## ☁️ Configuración para publicar en Docker Hub
 
 Para que GitHub Actions pueda publicar automáticamente la imagen de tu aplicación en internet, necesita tener permiso para entrar a tu cuenta de Docker Hub. Para esto, guardaremos tus credenciales de forma segura usando los "Secrets" de GitHub.
 
@@ -90,6 +110,7 @@ npm run test
 
 # Ejecutar pruebas en modo observador (ideal para desarrollo)
 npm run test:watch
+```
 
 ## 🐳 Dockerización (Despliegue)
 
